@@ -123,4 +123,11 @@ public class CustomerServiceImplTest {
         Assertions.assertEquals(FIRSTNAME, updatedCustomerDTO.getFirstName());
         Assertions.assertEquals(LASTNAME, updatedCustomerDTO.getLastName());
     }
+
+    @Test
+    public void deleteCustomerById() {
+        customerService.deleteCustomerById(ID);
+
+        Mockito.verify(customerRepository, Mockito.times(1)).deleteById(ID);
+    }
 }

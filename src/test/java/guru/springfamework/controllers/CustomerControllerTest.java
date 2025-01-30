@@ -147,4 +147,12 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath(("$.firstName"), Matchers.equalTo(newFirstName)))
                 .andExpect(MockMvcResultMatchers.jsonPath(("$.lastName"), Matchers.equalTo(LASTNAME)));
     }
+
+    @Test
+    public void deleteCustomer() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(API_URL + ID)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }
