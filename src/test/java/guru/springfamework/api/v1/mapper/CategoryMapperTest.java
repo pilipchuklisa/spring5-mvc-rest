@@ -2,15 +2,8 @@ package guru.springfamework.api.v1.mapper;
 
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.domain.Category;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 public class CategoryMapperTest {
 
@@ -25,21 +18,21 @@ public class CategoryMapperTest {
         category.setId(ID);
         category.setName(NAME);
 
-        CategoryDTO categoryDto = categoryMapper.categoryToCategoryDto(category);
+        CategoryDTO categoryDTO = categoryMapper.categoryToCategoryDto(category);
 
-        Assertions.assertEquals(category.getId(), categoryDto.getId());
-        Assertions.assertEquals(category.getName(), categoryDto.getName());
+        Assertions.assertEquals(category.getId(), categoryDTO.getId());
+        Assertions.assertEquals(category.getName(), categoryDTO.getName());
     }
 
     @Test
     public void categoryDtoToCategory() {
-        CategoryDTO categoryDto = new CategoryDTO();
-        categoryDto.setId(ID);
-        categoryDto.setName(NAME);
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(ID);
+        categoryDTO.setName(NAME);
 
-        Category category = categoryMapper.categoryDtoToCategory(categoryDto);
+        Category category = categoryMapper.categoryDtoToCategory(categoryDTO);
 
-        Assertions.assertEquals(categoryDto.getId(), category.getId());
-        Assertions.assertEquals(categoryDto.getName(), category.getName());
+        Assertions.assertEquals(categoryDTO.getId(), category.getId());
+        Assertions.assertEquals(categoryDTO.getName(), category.getName());
     }
 }
