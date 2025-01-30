@@ -21,8 +21,8 @@ public class CategoryServiceImplTest {
     @Mock
     CategoryRepository categoryRepository;
 
-    public static final Long ID = 1L;
-    public static final String NAME = "name";
+    private static final Long ID = 1L;
+    private static final String NAME = "name";
 
     @Before
     public void setUp() {

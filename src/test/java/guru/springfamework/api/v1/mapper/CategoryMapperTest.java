@@ -9,8 +9,8 @@ public class CategoryMapperTest {
 
     CategoryMapper categoryMapper = CategoryMapper.INSTANCE;
 
-    public static final Long ID = 1L;
-    public static final String NAME = "name";
+    private static final Long ID = 1L;
+    private static final String NAME = "name";
 
     @Test
     public void categoryToCategoryDto() {

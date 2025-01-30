@@ -28,9 +28,9 @@ public class CategoryControllerTest {
 
     MockMvc mockMvc;
 
-    public static final Long ID = 1L;
-    public static final String NAME = "name";
-    public static final String API_URL = "/api/v1/categories/";
+    private static final Long ID = 1L;
+    private static final String NAME = "name";
+    private static final String API_URL = "/api/v1/categories/";
 
     @Before
     public void setUp() {
