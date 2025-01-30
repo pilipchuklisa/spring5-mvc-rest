@@ -1,5 +1,6 @@
 package guru.springfamework.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.services.CustomerService;
 import org.hamcrest.Matchers;
@@ -88,5 +89,21 @@ public class CustomerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.equalTo((ID.intValue()))));
+    }
+
+    @Test
+    public void createCustomer() throws Exception {
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setId(ID);
+        customerDTO.setFirstName(FIRSTNAME);
+        customerDTO.setLastName(LASTNAME);
+
+        Mockito.when(customerService.createNewCustomer(customerDTO)).thenReturn(customerDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post(API_URL)
+                        .content(new ObjectMapper().writeValueAsString(customerDTO))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.header().string("location", API_URL));
     }
 }

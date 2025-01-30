@@ -41,4 +41,10 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return customerMapper.customerToCustomerDto(customer);
     }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+        return customerMapper.customerToCustomerDto(customerRepository.save(
+                customerMapper.customerDtoToCustomer(customerDTO)));
+    }
 }
