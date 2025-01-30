@@ -23,7 +23,7 @@ public class CustomerServiceImplTest {
     CustomerRepository customerRepository;
 
     private static final Long ID = 1L;
-    private static final String FIRSTNAME = "lastname";
+    private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
 
     @Before
@@ -101,5 +101,26 @@ public class CustomerServiceImplTest {
         Assertions.assertEquals(ID, savedCustomerDTO.getId());
         Assertions.assertEquals(FIRSTNAME, savedCustomerDTO.getFirstName());
         Assertions.assertEquals(LASTNAME, savedCustomerDTO.getLastName());
+    }
+
+    @Test
+    public void updateCustomer() {
+        Customer customer = new Customer();
+        customer.setId(ID);
+        customer.setFirstName(FIRSTNAME);
+        customer.setLastName(LASTNAME);
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setId(ID);
+        customerDTO.setFirstName(FIRSTNAME);
+        customerDTO.setLastName(LASTNAME);
+
+        Mockito.when(customerRepository.save(customer)).thenReturn(customer);
+
+        CustomerDTO updatedCustomerDTO = customerService.updateCustomer(ID, customerDTO);
+
+        Assertions.assertEquals(ID, updatedCustomerDTO.getId());
+        Assertions.assertEquals(FIRSTNAME, updatedCustomerDTO.getFirstName());
+        Assertions.assertEquals(LASTNAME, updatedCustomerDTO.getLastName());
     }
 }

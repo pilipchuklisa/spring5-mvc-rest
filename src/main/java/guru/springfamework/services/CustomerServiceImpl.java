@@ -6,6 +6,7 @@ import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -46,5 +47,29 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
         return customerMapper.customerToCustomerDto(customerRepository.save(
                 customerMapper.customerDtoToCustomer(customerDTO)));
+    }
+
+    @Override
+    public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
+        Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
+        customer.setId(id);
+
+        return customerMapper.customerToCustomerDto(customerRepository.save(customer));
+    }
+
+    @Override
+    @Transactional
+    public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
+        Customer customer = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
+
+        if (customerDTO.getFirstName() != null) {
+            customer.setFirstName(customerDTO.getLastName());
+        }
+
+        if (customerDTO.getLastName() != null) {
+            customer.setLastName(customerDTO.getLastName());
+        }
+
+        return customerMapper.customerToCustomerDto(customerRepository.save(customer));
     }
 }

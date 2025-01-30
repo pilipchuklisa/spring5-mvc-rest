@@ -10,7 +10,7 @@ public class CustomerMapperTest {
     CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
     private static final Long ID = 1L;
-    private static final String FIRSTNAME = "lastname";
+    private static final String FIRSTNAME = "firstname";
     private static final String LASTNAME = "lastname";
 
     @Test

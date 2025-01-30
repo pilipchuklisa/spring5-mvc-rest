@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @Controller
-@RequestMapping("/api/v1/customers/")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -24,7 +24,7 @@ public class CustomerController {
         return ResponseEntity.ok(new CustomerListDTO(customerService.getAllCustomers()));
     }
 
-//    @GetMapping("{lastname}")
+//    @GetMapping("/{lastname}")
 //    public ResponseEntity<CustomerDTO> getCustomerNyLastName(@PathVariable String lastname) {
 //        return ResponseEntity.ok(customerService.getCustomerByLastName(lastname));
 //    }
@@ -35,8 +35,18 @@ public class CustomerController {
                 .body(customerService.createNewCustomer(customerDTO));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return ResponseEntity.ok(customerService.updateCustomer(id, customerDTO));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CustomerDTO> patchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return ResponseEntity.ok(customerService.patchCustomer(id, customerDTO));
     }
 }
