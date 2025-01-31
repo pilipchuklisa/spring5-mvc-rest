@@ -3,6 +3,7 @@ package guru.springfamework.services;
 import guru.springfamework.api.v1.mapper.CategoryMapper;
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.domain.Category;
+import guru.springfamework.exceptions.ResourceNotFoundException;
 import guru.springfamework.repositories.CategoryRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CategoryServiceImplTest {
 
@@ -53,11 +55,19 @@ public class CategoryServiceImplTest {
         category.setId(ID);
         category.setName(NAME);
 
-        Mockito.when(categoryRepository.findByName(NAME)).thenReturn(category);
+        Mockito.when(categoryRepository.findByName(NAME)).thenReturn(Optional.of(category));
 
         CategoryDTO categoryDTO = categoryService.getCategoryByName(NAME);
 
         Assertions.assertEquals(ID, categoryDTO.getId());
         Assertions.assertEquals(NAME, categoryDTO.getName());
+    }
+
+    @Test
+    public void getCategoryByNameNotFound() {
+
+        Mockito.when(categoryRepository.findByName(NAME)).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> categoryService.getCategoryByName(NAME));
     }
 }

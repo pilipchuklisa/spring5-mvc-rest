@@ -3,6 +3,7 @@ package guru.springfamework.services;
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.domain.Customer;
+import guru.springfamework.exceptions.ResourceNotFoundException;
 import guru.springfamework.repositories.CustomerRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,6 +81,14 @@ public class CustomerServiceImplTest {
         Assertions.assertEquals(ID, customerDTO.getId());
         Assertions.assertEquals(FIRSTNAME, customerDTO.getFirstName());
         Assertions.assertEquals(LASTNAME, customerDTO.getLastName());
+    }
+
+    @Test
+    public void getCustomerByIdNotFound() {
+
+        Mockito.when(customerRepository.findById(ID)).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> customerService.getCustomerById(ID));
     }
 
     @Test
