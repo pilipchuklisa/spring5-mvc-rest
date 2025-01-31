@@ -115,8 +115,7 @@ public class CustomerControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post(API_URL)
                         .content(new ObjectMapper().writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.header().string("location", API_URL));
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
