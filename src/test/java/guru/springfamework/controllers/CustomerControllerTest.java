@@ -57,7 +57,8 @@ public class CustomerControllerTest {
         Mockito.when(customerService.getAllCustomers()).thenReturn(customerDTOS);
 
         mockMvc.perform(MockMvcRequestBuilders.get(API_URL)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.customers", Matchers.hasSize(1)));
     }
@@ -88,7 +89,8 @@ public class CustomerControllerTest {
         Mockito.when(customerService.getCustomerById(ID)).thenReturn(customerDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.get(API_URL + ID)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.equalTo((ID.intValue()))));
     }
@@ -129,7 +131,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.put(API_URL + ID)
                         .content(new ObjectMapper().writeValueAsString(customerDTO))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath(("$.id"), Matchers.equalTo(ID.intValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath(("$.firstName"), Matchers.equalTo(FIRSTNAME)))
@@ -152,7 +155,8 @@ public class CustomerControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.patch(API_URL + ID)
                         .content(new ObjectMapper().writeValueAsString(customerDTOPatch))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath(("$.id"), Matchers.equalTo(ID.intValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath(("$.firstName"), Matchers.equalTo(newFirstName)))
