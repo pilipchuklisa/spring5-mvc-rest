@@ -20,19 +20,16 @@ public class CategoryMapperTest {
 
         CategoryDTO categoryDTO = categoryMapper.categoryToCategoryDto(category);
 
-        Assertions.assertEquals(category.getId(), categoryDTO.getId());
         Assertions.assertEquals(category.getName(), categoryDTO.getName());
     }
 
     @Test
     public void categoryDtoToCategory() {
         CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(ID);
         categoryDTO.setName(NAME);
 
         Category category = categoryMapper.categoryDtoToCategory(categoryDTO);
 
-        Assertions.assertEquals(categoryDTO.getId(), category.getId());
         Assertions.assertEquals(categoryDTO.getName(), category.getName());
     }
 }

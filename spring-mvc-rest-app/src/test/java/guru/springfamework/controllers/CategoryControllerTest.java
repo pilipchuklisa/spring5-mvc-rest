@@ -44,7 +44,6 @@ public class CategoryControllerTest {
     @Test
     public void getAllCategories() throws Exception {
         CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(ID);
         categoryDTO.setName(NAME);
 
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
@@ -63,7 +62,6 @@ public class CategoryControllerTest {
     @Test
     public void getCategoryByName() throws Exception {
         CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(ID);
         categoryDTO.setName(NAME);
 
         Mockito.when(categoryService.getCategoryByName(NAME)).thenReturn(categoryDTO);

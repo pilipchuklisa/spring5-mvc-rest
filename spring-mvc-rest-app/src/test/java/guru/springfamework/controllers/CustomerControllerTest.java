@@ -1,9 +1,9 @@
 package guru.springfamework.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.exceptions.ResourceNotFoundException;
 import guru.springfamework.services.CustomerService;
+import guru.springframework.model.CustomerDTO;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -47,9 +47,8 @@ public class CustomerControllerTest {
     @Test
     public void getAllCustomers() throws Exception {
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
         List<CustomerDTO> customerDTOS = new ArrayList<>();
         customerDTOS.add(customerDTO);
@@ -67,24 +66,22 @@ public class CustomerControllerTest {
     @Test
     public void getCustomerNyLastName() throws Exception {
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
         Mockito.when(customerService.getCustomerByLastName(LASTNAME)).thenReturn(customerDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.get(API_URL + LASTNAME)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName", Matchers.equalTo(LASTNAME)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastname", Matchers.equalTo(LASTNAME)));
     }
 
     @Test
     public void getCustomerById() throws Exception {
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
         Mockito.when(customerService.getCustomerById(ID)).thenReturn(customerDTO);
 
@@ -92,7 +89,8 @@ public class CustomerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.equalTo((ID.intValue()))));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname", Matchers.equalTo(FIRSTNAME)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastname", Matchers.equalTo(LASTNAME)));
     }
 
     @Test
@@ -108,9 +106,8 @@ public class CustomerControllerTest {
     @Test
     public void createCustomer() throws Exception {
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
         Mockito.when(customerService.createNewCustomer(customerDTO)).thenReturn(customerDTO);
 
@@ -123,20 +120,18 @@ public class CustomerControllerTest {
     @Test
     public void updateCustomer() throws Exception {
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
-        Mockito.when(customerService.updateCustomer(ID, customerDTO)).thenReturn(customerDTO);
+        Mockito.when(customerService.updateCustomer(Mockito.anyLong(), Mockito.any())).thenReturn(customerDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.put(API_URL + ID)
                         .content(new ObjectMapper().writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath(("$.id"), Matchers.equalTo(ID.intValue())))
-                .andExpect(MockMvcResultMatchers.jsonPath(("$.firstName"), Matchers.equalTo(FIRSTNAME)))
-                .andExpect(MockMvcResultMatchers.jsonPath(("$.lastName"), Matchers.equalTo(LASTNAME)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname", Matchers.equalTo(FIRSTNAME)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastname", Matchers.equalTo(LASTNAME)));
     }
 
     @Test
@@ -144,23 +139,21 @@ public class CustomerControllerTest {
         String newFirstName = "new value";
 
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(newFirstName);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(newFirstName);
+        customerDTO.setLastname(LASTNAME);
 
         CustomerDTO customerDTOPatch = new CustomerDTO();
-        customerDTOPatch.setFirstName(newFirstName);
+        customerDTOPatch.setFirstname(newFirstName);
 
-        Mockito.when(customerService.patchCustomer(ID, customerDTOPatch)).thenReturn(customerDTO);
+        Mockito.when(customerService.patchCustomer(Mockito.anyLong(), Mockito.any())).thenReturn(customerDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.patch(API_URL + ID)
                         .content(new ObjectMapper().writeValueAsString(customerDTOPatch))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath(("$.id"), Matchers.equalTo(ID.intValue())))
-                .andExpect(MockMvcResultMatchers.jsonPath(("$.firstName"), Matchers.equalTo(newFirstName)))
-                .andExpect(MockMvcResultMatchers.jsonPath(("$.lastName"), Matchers.equalTo(LASTNAME)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname", Matchers.equalTo(newFirstName)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastname", Matchers.equalTo(LASTNAME)));
     }
 
     @Test

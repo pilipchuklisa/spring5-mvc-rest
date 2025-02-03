@@ -1,10 +1,10 @@
 package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
-import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.exceptions.ResourceNotFoundException;
 import guru.springfamework.repositories.CustomerRepository;
+import guru.springframework.model.CustomerDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -62,9 +62,8 @@ public class CustomerServiceImplTest {
 
         CustomerDTO customerDTO = customerService.getCustomerByLastName(LASTNAME);
 
-        Assertions.assertEquals(ID, customerDTO.getId());
-        Assertions.assertEquals(FIRSTNAME, customerDTO.getFirstName());
-        Assertions.assertEquals(LASTNAME, customerDTO.getLastName());
+        Assertions.assertEquals(FIRSTNAME, customerDTO.getFirstname());
+        Assertions.assertEquals(LASTNAME, customerDTO.getLastname());
     }
 
     @Test
@@ -78,9 +77,8 @@ public class CustomerServiceImplTest {
 
         CustomerDTO customerDTO = customerService.getCustomerById(ID);
 
-        Assertions.assertEquals(ID, customerDTO.getId());
-        Assertions.assertEquals(FIRSTNAME, customerDTO.getFirstName());
-        Assertions.assertEquals(LASTNAME, customerDTO.getLastName());
+        Assertions.assertEquals(FIRSTNAME, customerDTO.getFirstname());
+        Assertions.assertEquals(LASTNAME, customerDTO.getLastname());
     }
 
     @Test
@@ -99,17 +97,15 @@ public class CustomerServiceImplTest {
         customer.setLastName(LASTNAME);
 
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
-        Mockito.when(customerRepository.save(customer)).thenReturn(customer);
+        Mockito.when(customerRepository.save(Mockito.any())).thenReturn(customer);
 
         CustomerDTO savedCustomerDTO = customerService.createNewCustomer(customerDTO);
 
-        Assertions.assertEquals(ID, savedCustomerDTO.getId());
-        Assertions.assertEquals(FIRSTNAME, savedCustomerDTO.getFirstName());
-        Assertions.assertEquals(LASTNAME, savedCustomerDTO.getLastName());
+        Assertions.assertEquals(FIRSTNAME, savedCustomerDTO.getFirstname());
+        Assertions.assertEquals(LASTNAME, savedCustomerDTO.getLastname());
     }
 
     @Test
@@ -120,17 +116,15 @@ public class CustomerServiceImplTest {
         customer.setLastName(LASTNAME);
 
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
         Mockito.when(customerRepository.save(customer)).thenReturn(customer);
 
         CustomerDTO updatedCustomerDTO = customerService.updateCustomer(ID, customerDTO);
 
-        Assertions.assertEquals(ID, updatedCustomerDTO.getId());
-        Assertions.assertEquals(FIRSTNAME, updatedCustomerDTO.getFirstName());
-        Assertions.assertEquals(LASTNAME, updatedCustomerDTO.getLastName());
+        Assertions.assertEquals(FIRSTNAME, updatedCustomerDTO.getFirstname());
+        Assertions.assertEquals(LASTNAME, updatedCustomerDTO.getLastname());
     }
 
     @Test

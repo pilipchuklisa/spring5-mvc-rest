@@ -1,7 +1,7 @@
 package guru.springfamework.api.v1.mapper;
 
-import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.domain.Customer;
+import guru.springframework.model.CustomerDTO;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -22,22 +22,19 @@ public class CustomerMapperTest {
 
         CustomerDTO customerDTO = customerMapper.customerToCustomerDto(customer);
 
-        Assertions.assertEquals(customer.getId(), customerDTO.getId());
-        Assertions.assertEquals(customer.getFirstName(), customerDTO.getFirstName());
-        Assertions.assertEquals(customer.getLastName(), customerDTO.getLastName());
+        Assertions.assertEquals(customer.getFirstName(), customerDTO.getFirstname());
+        Assertions.assertEquals(customer.getLastName(), customerDTO.getLastname());
     }
 
     @Test
     public void customerDtoToCustomer() {
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(ID);
-        customerDTO.setFirstName(FIRSTNAME);
-        customerDTO.setLastName(LASTNAME);
+        customerDTO.setFirstname(FIRSTNAME);
+        customerDTO.setLastname(LASTNAME);
 
         Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
 
-        Assertions.assertEquals(customerDTO.getId(), customer.getId());
-        Assertions.assertEquals(customerDTO.getFirstName(), customer.getFirstName());
-        Assertions.assertEquals(customerDTO.getLastName(), customer.getLastName());
+        Assertions.assertEquals(customerDTO.getFirstname(), customer.getFirstName());
+        Assertions.assertEquals(customerDTO.getLastname(), customer.getLastName());
     }
 }

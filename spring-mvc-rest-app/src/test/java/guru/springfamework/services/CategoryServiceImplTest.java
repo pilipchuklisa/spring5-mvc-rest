@@ -59,7 +59,6 @@ public class CategoryServiceImplTest {
 
         CategoryDTO categoryDTO = categoryService.getCategoryByName(NAME);
 
-        Assertions.assertEquals(ID, categoryDTO.getId());
         Assertions.assertEquals(NAME, categoryDTO.getName());
     }
 
